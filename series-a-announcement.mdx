@@ -1,0 +1,79 @@
+---
+title: "Announcing our Series A: Why We're Rebuilding the PCB Stack at Diode"
+description: "We built a chip that worked first try—then the PCB failed. Here's why we're rebuilding the entire PCB stack."
+author: "Davide Asnaghi"
+date: "2025-07-24"
+---
+
+*By Davide Asnaghi, Co-Founder & CEO*
+
+---
+
+## The Problem
+
+A few years ago, my co-founder Lenny and I taped out custom silicon at TSMC. It was a complicated mixed-signal ASIC, and — against all statistical odds — it powered up flawlessly on day one.
+
+The printed-circuit board that hosted that miracle chip?
+
+Two unconnected nets, one flipped footprint, and a thermal relief that never relieved.
+
+That disconnect still blows my mind. Modern semiconductor toolchains can verify billions of transistors, yet the software that routes copper on a postcard-sized fiberglass slab can't protect engineers from simple blunders. We realized the bottleneck in hardware innovation wasn't Moore's Law; it was the "one-board-per-quarter" cadence forced by legacy EDA workflows.
+
+So we started **Diode** to close that gap.
+
+---
+
+## The Broken Workflow
+
+1. **Siloed design** in heavyweight, decades-old EDA suites.  
+2. **Manual export** of a dozen file formats, each with hidden assumptions.  
+3. **Email ping-pong** with fabricators over spacing, drill tables, and stack-ups.  
+4. **Spin, wait, repeat**—all while the BOM mutates in the background.
+
+Every time you reroute because a part goes EOL or the board comes back with cryptic "DFM violations," you lose precious calendar days. Worse, your company loses confidence to iterate.
+
+---
+
+## Our Solution
+
+Traditionally, Electronic Design Automation (EDA) has faced several limitations. Our goal is to redesign the entire stack to make it better for humans AND machines:
+
+* **Open Source, Pythonic Code:** Unlike proprietary, closed schemas, Diode's open and human-readable code is easily understood by LLMs for generation and readily reviewable by humans.  
+* **Lightning-Fast Verification:** Our Rust core compiles full designs in *milliseconds*, drastically speeding up the verification process.
+* **Designed for manufacturing:** We move beyond "one-size-fits-nobody" rulesets by incorporating shop-specific, machine-readable constraints from the outset, ensuring tailor-made and efficient design adherence.
+
+We began on the shoulders of giants: **KiCad** is the gold standard in open-source electronics, so we're proud to become a **Platinum Sponsor**.
+
+---
+
+## What We Offer Today
+
+* **A board design every 4 days** A single EE at diode shipped **100+ unique designs last year** without too much effort (it was still hard).
+* **Fortune 100 & frontier startups** Teams at *Physical Intelligence*, *Saronic*, and several Tier-1s are already using Diode to shrink revision counts from *five* to *one*.
+* **Format-agnostic output** If your workflow is Altium or Cadence today, you'll still get BRDs, ODB++, or IPC-2581 - just without the pain.
+
+Each board pushed through Diode feeds a feedback loop: real-world yield data, stack-up quirks, upstream lead-times, even reflow profiles. The compiler gets smarter; your next design gets safer.
+
+---
+
+## Where We're Headed
+
+Our ambition isn't to be an "AI PCB copilot." We're teaching machines to reason about *physical* constraints—electrical, thermal, mechanical—and to take designs all the way to a box you can hold. When you hire Diode, you're hiring an **automated schematic engineer, layout specialist, and manufacturing liaison** all rolled into one.
+
+Someday opening Altium for a fresh design should feel as retro as FTP-ing static HTML. Talking to Diode's model will be faster.
+
+---
+
+## Why Now
+
+Reshoring, defense urgency, and shrinking component lifecycles mean hardware teams can't afford six-week spins. That's why we're thrilled to partner with **Andreessen Horowitz**, alongside **Y Combinator**, to scale Diode's compiler and onboard more fabs.
+
+---
+
+## Join Us
+
+We're hiring world-class **electrical engineers** and **systems hackers** who want to ship real boards. If rebuilding the hardware toolchain from transistor up to BOM excites you, let's talk.
+
+→  **careers@diode.computer**
+
+*Hardware can move at the speed of software. We're writing the compiler that makes it so.*

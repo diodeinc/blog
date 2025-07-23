@@ -1,115 +1,52 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "theme": "linden",
+  "name": "Diode Computers, Inc.",
+  "description": "Custom circuit boards designed & manufactured to your specifications. Rebuilding the hardware toolchain from transistor up to BOM.",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#20cd8d",
+    "light": "#20cd8d",
+    "dark": "#20cd8d"
   },
   "favicon": "/favicon.svg",
+  "appearance": {
+    "default": "dark",
+    "strict": false
+  },
+  "styling": {
+    "eyebrows": "section",
+    "codeblocks": "system"
+  },
+  "css": "/custom.css",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
+        "group": "Company Updates",
+        "pages": ["series-a-announcement"]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "dark": "/logo/dark.svg",
+    "href": "https://diode.computer"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+    "links": []
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/diodeinc",
+      "github": "https://github.com/diodeinc",
+      "linkedin": "https://linkedin.com/company/diode-inc"
+    }
+  },
+  "seo": {
+    "metatags": {
+      "og:site_name": "Diode Computers, Inc. Blog",
+      "og:type": "website",
+      "twitter:site": "@diodeinc",
+      "og:image": "https://diode.computer/og-image.png"
     }
   }
 }
