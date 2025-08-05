@@ -4,9 +4,7 @@
   "name": "Diode Computers, Inc.",
   "description": "Custom circuit boards designed & manufactured to your specifications. Rebuilding the hardware toolchain from transistor up to BOM.",
   "fonts": {
-    "family": "code-saver",
-    "format": "woff2",
-    "source": "https://use.typekit.net/af/56d6a7/00000000000000007735b602/31/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3"
+    "family": "code-saver"
   },
   "colors": {
     "primary": "#101010",
