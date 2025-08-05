@@ -9,13 +9,13 @@
     "source": "https://use.typekit.net/af/56d6a7/00000000000000007735b602/31/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3"
   },
   "colors": {
-    "primary": "#010101",
+    "primary": "#101010",
     "light": "#F4F4F4",
-    "dark": "#010101"
+    "dark": "#101010"
   },
   "background": {
     "color": {
-      "dark": "#010101"
+      "dark": "#101010"
     }
   },
   "favicon": "/favicon.svg",
