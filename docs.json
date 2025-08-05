@@ -17,7 +17,7 @@
       "light": "#F4F4F4"
     }
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/green.svg",
   "appearance": {
     "default": "system"
   },
