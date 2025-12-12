@@ -1,0 +1,128 @@
+---
+title: "Teaching AI To Design Circuit Boards That Ship"
+description: "How we partnered with Anthropic to bring AI into real PCB design—using Zener, our open-source language, to let Claude draft schematics, verify designs, and build a library of reference modules."
+author: "Nasheed Ur Rehman"
+date: "2025-12-02"
+---
+
+*By Nasheed Ur Rehman*
+
+---
+
+
+At Diode Computers we design and manufacture custom circuit boards with AI. Our customers ask for everything from sensor frontends and power systems to dense boards that route high speed compute modules. The constraint is consistent. They want production grade hardware on startup schedules.
+
+Over the last few months we have been working with Anthropic on a shared question: how good can a general purpose AI model become at real electrical engineering work. Not as a demo or a toy, but on designs that turn into hardware our customers plug into test stands, planes and robots.
+
+Our goal was simple. If we could build the right tooling and guardrails, the model should be able to contribute across the Printed Circuit Board (PCB) workflow, from reference design to layout to bringup firmware. The only way to do that reliably is to treat design as a software problem and assume that increasingly capable models will sit in the loop. The result is a system where models and engineers work together inside a language designed for both, with the structure and safeguards needed to participate safely and meaningfully alongside experienced hardware teams.
+
+
+---
+
+## Turning PCB Design into a software workflow
+
+Diode Computers, Inc. is an American design and manufacturing company for PCBs based in the Brooklyn Navy Yard. We work with customers from initial spec to volume production. At the core of that process is a toolchain that turns PCB design into something that looks a lot like a software problem.
+
+Instead of dragging symbols around in a schematic editor and wiring them together by hand, engineers describe designs in a programmatic representation, which is automatically rendered and turned into a KiCad project ready for layout and fabrication. Tasks that would normally take days of engineer time, such as drafting schematics or standing up initial reference designs, can often be produced by models in hours, then reviewed and refined by humans.
+
+The result is not only faster delivery times, it is a workflow that is easier to reason about, test, and improve.
+
+---
+
+## Zener, a language for humans and models
+
+The foundation of our workflow is [Zener](https://github.com/diodeinc/pcb), our open source domain specific language built on top of Starlark for describing PCB schematics. Zener gives engineers a set of primitives for components, symbols, nets, interfaces, and modules, all expressed as code that is type safe and composable.
+
+When we designed Zener we had two audiences in mind.
+
+For human engineers, Zener needs to be readable at a glance. Traditional schematic capture tools encode structure in a visual diagram. Zener encodes that same structure in a way that can live in version control, pass through code review, and be refactored like any software project.
+
+For models such as Claude, we wanted a language that would feel familiar. Starlark is a strict subset of Python, which means there is a large corpus of high quality code the model already understands. What remains is teaching the model the specific semantics of Zener. Once it understands that, it can navigate a design, trace signal paths, and manipulate the schematic with real awareness of intent.
+
+---
+
+## Why reference designs matter
+
+Most serious hardware projects begin with a reference design. A new device rarely operates in isolation. It arrives with extensive documentation: decoupling requirements, biasing conditions, operating modes, and layout constraints. Even a single chip can demand a web of supporting components, each with details that are easy to miss.
+
+In practice, producing a usable reference design usually means doing three things well: reading an often long and underspecified datasheet, turning example schematics into a reusable configuration, and selecting passives and support components that match the intended operating modes. Historically, this has been slow and error-prone. It is also exactly the kind of structured, text-heavy work that capable models can meaningfully accelerate.
+
+---
+
+## Building an open library of Zener reference designs
+
+One of the highest-leverage investments we can make, as a company, is a library of validated, reusable reference modules. Each module captures a device and its recommended operating envelope. Once that library exists, larger systems can be assembled by composing proven blocks. Doing this in code is the right level of abstraction because code is modular, testable, and reusable by construction.
+
+Once Zener was stable, one of the first projects we tackled was building an open library of reusable reference designs written in the language.
+
+KiCad already ships with a substantial component library, including symbols, footprints, and links to datasheets. By giving Claude access to those datasheets in a machine-readable form, alongside Zener documentation and a small set of high-quality examples, we built a pipeline where the model drafts complete reference modules for individual parts.
+
+The workflow is straightforward:
+
+* Provide the datasheet for a component, plus a small set of high-quality Zener examples.  
+* Ask the model to draft a configurable reference module that covers relevant operating modes.  
+* Run the output through our tooling and programmatic checks.  
+* Feed critical issues back for correction, then route the result for human review.
+
+Within two weeks, this pipeline produced roughly 250 reference designs, spanning simple sensors, microcontrollers, switching power stages, and more complex analog signal-processing chains. These examples are published at [https://zener.diode.computer](https://zener.diode.computer), and they also contributed to the broader effort to make Claude stronger on practical electrical engineering tasks. Those gains carry forward into the models our engineers use today, improving day-to-day work through shared training and iteration.
+
+---
+
+## The Registry: a sandbox for AI hardware design
+
+Public reference designs are only one part of the story. Inside Diode, we maintain a second library we call the Registry.
+
+The Registry contains higher value modules that represent a meaningful engineering investment and show up across many boards. It includes compute platforms built around Qualcomm system-on-modules and Nvidia Jetson systems, RF and mixed signal front ends for high frequency applications, and the supporting power, sensing, and communications blocks that have already been exercised in real projects, including environmental testing and volume production.
+
+Each Registry entry is more than a schematic. It is a Zener module paired with a validated layout fragment that can be dropped into a new board, along with constraints and notes that encode practical experience from prior work. When a module is pulled into a project, it brings a proven physical implementation, not just a conceptual design. What remains is largely inter module routing and system level integration.
+
+This structure also gives Claude a clean sandbox to operate in. When a new customer request comes in, we record the early discussions and use a model to draft a structured specification. Claude then uses that specification to search the Registry, import the right building blocks, and assemble a first pass design in Zener. If a needed block is missing, it can generate a new reference module using the same techniques described above.
+
+The net effect is that project kickoff becomes an exercise in composition rather than starting from a blank slate. Layout integration and human design review remain the final stages before fabrication, but the front half of the timeline compresses materially. In practice, that has meant a consistent shift from months to weeks on real projects.
+
+---
+
+## Verifying designs with code and models
+
+Expressing schematics as code unlocks a very practical advantage for verification.
+
+Because the full netlist is encoded in Zener, it is straightforward for a model to trace power paths, follow signal routing, and check directionality. Coupled with access to datasheets and a set of electrical rule checks that operate directly on the language, Claude can highlight potential issues before a human ever opens the schematic in a graphical editor.
+
+In practice this has helped us catch miswired power rails, inverted level translators, and configuration pins left floating in ways that would have been easy to miss. Engineers still sign off every design, but the model serves as an always available reviewer that can explain why something looks suspicious, often with references back to the relevant page of the datasheet.
+
+
+--- 
+##Symbols, placement, and the details that matter
+
+Beyond reference designs and firmware, we have found a number of smaller but meaningful ways to involve models in day to day PCB work.
+
+Symbol and footprint quality is a good example. There is an entire ecosystem of companies focused purely on ECAD libraries for a reason. Good symbols and footprints are essential if schematics are to remain readable as designs scale. Much of the internet’s KiCad library content is electrically correct but stylistically inconsistent. With Claude in the loop, we can describe the standards we want in natural language and have the model iteratively reshape downloaded symbols to match our conventions. It adjusts pin ordering, groups related functions, and cleans up graphics so design reviews are faster and schematics are easier to scan.
+
+A similar pattern applies in layout. Placement has historically been a highly manual discipline, especially for the repetitive supporting components that make a board actually behave. By parsing KiCad board files, Claude can propose sensible placements for decoupling capacitors near the pins they serve, organize bulk capacitors into clear banks, and align text labels with the interfaces they describe. None of this replaces layout engineers, but it reduces time spent on mechanical edits and keeps human attention focused on routing strategy, signal integrity, and system level tradeoffs. The cumulative effect is designs that are friendlier for people while remaining fully machine navigable.
+
+---
+
+##Schematics for humans, code for models.
+
+The overarching pattern is a clean separation of concerns. Engineers continue to work in schematic editors, focus on architecture, and communicate ideas through familiar symbols and nets. Under the hood, those schematics are backed by Zener modules that models can read and write.
+
+Each symbol and connection corresponds to a precise Zener definition. Any change made by an engineer has a well defined representation in code, and any proposal from a model arrives as a clear, reviewable diff. That makes the workflow feel like hardware on the surface, but behave like software in the parts that matter.
+
+This enables a new design loop. An engineer can ask for a high level change in natural language, let Claude propose edits in Zener, and then accept or adjust them with the same discipline used in a code review. From that shared code representation, automated checks can run consistently, and the growing library of accepted designs becomes durable context that improves future suggestions. The goal is not only speed, but hardware design that is more searchable, reviewable, and collaborative, so both humans and models can operate at a higher level of abstraction.
+
+---
+
+## Where we are going next
+
+Our roadmap is to keep pushing this loop: evolve Zener and the surrounding tooling so hardware design becomes a natural capability for frontier models.
+
+On the design side, that means expanding the public library of Zener reference designs and examples, growing our internal Registry of reusable modules and validated layout fragments, and tightening the feedback loop between real Diode projects and the models that help build them. We want Zener to capture more of the constraints and intent that currently live in engineers’ heads or scattered documentation, so a model like Claude can take a natural language description of a board, assemble a design from proven building blocks, verify it against electrical rules, and draft bring up firmware. The output should be a design an engineer can understand, review, and ship.
+
+On the manufacturing side, we are extending the same approach into panelization, test planning, and supply chain aware design, so more of the path from specification to a board arriving on a customer’s bench is automated, auditable, and reliable.
+
+The objective is simple to state and difficult to execute: a team should be able to describe the board it needs and have working hardware arrive with as little friction as possible, without giving up the rigor that good engineering demands. Strong models matter, but the key ingredient is the language that sits between AI systems and human designers. That language is Zener, and we are committed to building it in partnership with teams like Anthropic advancing the state of the art.
+
+---
+### Acknowledgements 
+
+This article was written in collaboration between Nasheed Ur Rehman, Davide Asnaghi and Lenny Khazan of Diode Computers.
