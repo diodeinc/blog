@@ -82,13 +82,20 @@ The net effect is that project kickoff becomes an exercise in composition rather
 
 ---
 
-## Verifying designs with code and models
+## Simulation as ground truth
 
-Expressing schematics as code unlocks a very practical advantage for verification.
+Models can sound confident about circuits that would never work. The only way to close that gap is to give them access to ground truth: simulation results that don't lie.
 
-Because the full netlist is encoded in Zener, it is straightforward for a model to trace power paths, follow signal routing, and check directionality. Coupled with access to datasheets and a set of electrical rule checks that operate directly on the language, Claude can highlight potential issues before a human ever opens the schematic in a graphical editor. Each Zener module can also include SPICE simulations that run automatically. The model sees simulation results as ground truth—when a proposed circuit fails to meet spec, it gets concrete feedback it can reason about and iterate on.
 
-In practice this has helped us catch miswired power rails, inverted level translators, and configuration pins left floating in ways that would have been easy to miss. Engineers still sign off every design, but the model serves as an always available reviewer that can explain why something looks suspicious, often with references back to the relevant page of the datasheet.
+![Notch Filter](/media/anthropic-partnership/notch-filter.png)
+*Twin-T notch filter generated in Zener*
+
+Each Zener module can include SPICE simulations that run automatically. When Claude proposes a filter, a bias network, or a power stage, the simulation runs and returns real numbers—gain, bandwidth, stability margins. If the circuit fails to meet spec, the model sees exactly why and iterates. This tight feedback loop is what turns a language model into something that can genuinely reason about analog behavior.
+
+![Simulation Output](/media/anthropic-partnership/twintnotch_magnitude.svg)
+*SPICE simulation output showing the notch response*
+
+Beyond simulation, the full netlist is available for static checks: tracing power paths, verifying signal directionality, and catching floating pins or miswired rails. Engineers still sign off every design, but the combination of simulation feedback and structural verification means fewer surprises make it to review.
 
 
 --- 
