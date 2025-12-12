@@ -35,7 +35,7 @@ The foundation of our workflow is [Zener](https://github.com/diodeinc/pcb), our 
 
 When we designed Zener we had two audiences in mind.
 
-For human engineers, Zener needs to be readable at a glance. Traditional schematic capture tools encode structure in a visual diagram. Zener encodes that same structure in a way that can live in version control, pass through code review, and be refactored like any software project.
+For human engineers, Zener needs to be readable at a glance. Traditional schematic capture tools encode structure in a visual diagram. Zener encodes that same structure in a way that can live in version control, pass through code review, and be refactored like any software project. When needed, the code renders directly into graphical schematics, so engineers can always see the visual representation they expect.
 
 For models such as Claude, we wanted a language that would feel familiar. Starlark is a strict subset of Python, which means there is a large corpus of high quality code the model already understands. What remains is teaching the model the specific semantics of Zener. Once it understands that, it can navigate a design, trace signal paths, and manipulate the schematic with real awareness of intent.
 
@@ -51,9 +51,9 @@ In practice, producing a usable reference design usually means doing three thing
 
 ## Building an open library of Zener reference designs
 
-One of the highest-leverage investments we can make, as a company, is a library of validated, reusable reference modules. Each module captures a device and its recommended operating envelope. Once that library exists, larger systems can be assembled by composing proven blocks. Doing this in code is the right level of abstraction because code is modular, testable, and reusable by construction.
+Creating a library of reusable, real-world tested reference modules is one of the highest-leverage investments our company can make. Each module captures a device and its recommended operating envelope. Once that library exists, larger systems can be assembled by composing proven blocks. Doing this in code is the right level of abstraction because code is modular, testable, and reusable by construction.
 
-Once Zener was stable, one of the first projects we tackled was building an open library of reusable reference designs written in the language.
+Once Zener was created, the first project we tackled was building an open library of reusable reference designs written in the language.
 
 KiCad already ships with a substantial component library, including symbols, footprints, and links to datasheets. By giving Claude access to those datasheets in a machine-readable form, alongside Zener documentation and a small set of high-quality examples, we built a pipeline where the model drafts complete reference modules for individual parts.
 
@@ -74,7 +74,7 @@ Public reference designs are only one part of the story. Inside Diode, we mainta
 
 The Registry contains higher value modules that represent a meaningful engineering investment and show up across many boards. It includes compute platforms built around Qualcomm system-on-modules and Nvidia Jetson systems, RF and mixed signal front ends for high frequency applications, and the supporting power, sensing, and communications blocks that have already been exercised in real projects, including environmental testing and volume production.
 
-Each Registry entry is more than a schematic. It is a Zener module paired with a validated layout fragment that can be dropped into a new board, along with constraints and notes that encode practical experience from prior work. When a module is pulled into a project, it brings a proven physical implementation, not just a conceptual design. What remains is largely inter module routing and system level integration.
+Each Registry entry is more than a schematic. It is a Zener module paired with a validated layout fragment and manufacturing data that can be dropped into a new board, along with constraints and notes that encode practical experience from prior work. When a module is pulled into a project, it brings a proven physical implementation, not just a conceptual design. What remains is largely inter module routing and system level integration.
 
 This structure also gives Claude a clean sandbox to operate in. When a new customer request comes in, we record the early discussions and use a model to draft a structured specification. Claude then uses that specification to search the Registry, import the right building blocks, and assemble a first pass design in Zener. If a needed block is missing, it can generate a new reference module using the same techniques described above.
 
@@ -86,13 +86,13 @@ The net effect is that project kickoff becomes an exercise in composition rather
 
 Expressing schematics as code unlocks a very practical advantage for verification.
 
-Because the full netlist is encoded in Zener, it is straightforward for a model to trace power paths, follow signal routing, and check directionality. Coupled with access to datasheets and a set of electrical rule checks that operate directly on the language, Claude can highlight potential issues before a human ever opens the schematic in a graphical editor.
+Because the full netlist is encoded in Zener, it is straightforward for a model to trace power paths, follow signal routing, and check directionality. Coupled with access to datasheets and a set of electrical rule checks that operate directly on the language, Claude can highlight potential issues before a human ever opens the schematic in a graphical editor. Each Zener module can also include SPICE simulations that run automatically. The model sees simulation results as ground truth—when a proposed circuit fails to meet spec, it gets concrete feedback it can reason about and iterate on.
 
 In practice this has helped us catch miswired power rails, inverted level translators, and configuration pins left floating in ways that would have been easy to miss. Engineers still sign off every design, but the model serves as an always available reviewer that can explain why something looks suspicious, often with references back to the relevant page of the datasheet.
 
 
 --- 
-##Symbols, placement, and the details that matter
+## Symbols, placement, and the details that matter
 
 Beyond reference designs and firmware, we have found a number of smaller but meaningful ways to involve models in day to day PCB work.
 
@@ -100,9 +100,11 @@ Symbol and footprint quality is a good example. There is an entire ecosystem of 
 
 A similar pattern applies in layout. Placement has historically been a highly manual discipline, especially for the repetitive supporting components that make a board actually behave. By parsing KiCad board files, Claude can propose sensible placements for decoupling capacitors near the pins they serve, organize bulk capacitors into clear banks, and align text labels with the interfaces they describe. None of this replaces layout engineers, but it reduces time spent on mechanical edits and keeps human attention focused on routing strategy, signal integrity, and system level tradeoffs. The cumulative effect is designs that are friendlier for people while remaining fully machine navigable.
 
+![Symbol generation](/media/anthropic-partnership/symbol-generation.png)
+
 ---
 
-##Schematics for humans, code for models.
+## Schematics for humans, code for models.
 
 The overarching pattern is a clean separation of concerns. Engineers continue to work in schematic editors, focus on architecture, and communicate ideas through familiar symbols and nets. Under the hood, those schematics are backed by Zener modules that models can read and write.
 
