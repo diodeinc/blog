@@ -2,7 +2,7 @@
 title: "Teaching Claude To Design Circuit Boards That Ship"
 description: "How we partnered with Anthropic to bring AI into real PCB design using Zener, our open-source language, to let Claude draft schematics, verify designs, and build a library of reference modules."
 author: "Nasheed Ur Rehman"
-date: "2025-12-02"
+date: "2025-12-12"
 ---
 
 *By Nasheed Ur Rehman*
@@ -105,9 +105,12 @@ Beyond reference designs and firmware, we have found a number of smaller but mea
 
 Symbol and footprint quality is a good example. There is an entire ecosystem of companies focused purely on ECAD libraries for a reason. Good symbols and footprints are essential if schematics are to remain readable as designs scale. Much of the internet’s KiCad library content is electrically correct but stylistically inconsistent. With Claude in the loop, we can describe the standards we want in natural language and have the model iteratively reshape downloaded symbols to match our conventions. It adjusts pin ordering, groups related functions, and cleans up graphics so design reviews are faster and schematics are easier to scan.
 
+![Symbol generation](/media/anthropic-partnership/symbol-generation.png)
+
 A similar pattern applies in layout. Placement has historically been a highly manual discipline, especially for the repetitive supporting components that make a board actually behave. By parsing KiCad board files, Claude can propose sensible placements for decoupling capacitors near the pins they serve, organize bulk capacitors into clear banks, and align text labels with the interfaces they describe. None of this replaces layout engineers, but it reduces time spent on mechanical edits and keeps human attention focused on routing strategy, signal integrity, and system level tradeoffs. The cumulative effect is designs that are friendlier for people while remaining fully machine navigable.
 
-![Symbol generation](/media/anthropic-partnership/symbol-generation.png)
+![Automated Layout](/media/anthropic-partnership/automated-layout.png)
+
 *Claude reshaping a KiCad symbol*
 
 ---
