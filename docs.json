@@ -30,7 +30,7 @@
     "groups": [
       {
         "group": "Company Updates",
-        "pages": ["series-a-announcement"]
+        "pages": ["anthropic-partnership", "series-a-announcement"]
       }
     ]
   },
