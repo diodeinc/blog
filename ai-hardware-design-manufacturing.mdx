@@ -1,0 +1,28 @@
+---
+title: "AI Hardware Design Gets Faster, Manufacturing Matters More"
+description: "As models get better at designing circuit boards, the bottleneck in hardware shifts from design to manufacturing. Why we think the bridge from design file to physical board is where the enduring value lies."
+author: "Davide Asnaghi, Lenny Khazan, and Zabie Elmgren"
+date: "2026-11-09"
+---
+
+*By Davide Asnaghi, Lenny Khazan, and Zabie Elmgren*
+
+---
+
+Recent models like Fable 5.2 today have dramatically changed what many expect from AI in designing hardware. To us, it felt inevitable. At its core, a circuit board design is just a file based on a set of rules, and with the right harness and data, it's a problem that models are quite good at.
+
+At Diode, we design and manufacture custom circuit boards. For the past two years we've worked with Anthropic and other labs to help make models better at electrical engineering, including contributing to the training behind Sonnet 4.5 and later models — the recent improvements we've seen have been incredible. Admittedly, they aren't perfect; models still trip up on things like RF design, power delivery, and high-speed routing, but every release is more capable and requires less electrical rework.
+
+If you've paid attention to what AI coding tools have done for people who can't code, you can see where things go from here. Soon, someone with no electrical engineering background will be able to describe what they want a board to do and fully one-shot a design that works, at least on paper.
+
+This matters because custom hardware often means a better final product. A board built for a specific application does exactly what it needs and nothing else, so it ends up smaller and cheaper at volume, with fewer parts that can fail. It's just historically been too slow and expensive for most projects to justify, let alone actually succeed. Good electrical engineers are hard to find! However, if design becomes easy, more teams will lean into custom hardware.
+
+The hard part then shifts to actually making it. Design might be tractable and verifiable, but the real world remains quite messy. Say a part goes out of stock between design review and manufacturing, or the files are vague about impedance and a job sits on a DFM hold while the manufacturer figures out what the engineer meant. Small things like these can cost you weeks or leave you with stacks of boards that don't work.
+
+We believe that the bridge from design file to physical board in your hand is where the enduring value lies — in PCBs, and perhaps even all hardware. Drawing up a functional design will be increasingly commoditized, but making sure a board can actually get made to your specs is much more complicated. You need live data on which parts you can buy, what a fab in the right location can actually build, and what it costs at your timeline and volume. What we've learned is that you only control this when you actually manufacture and deliver hardware.
+
+Owning the full stack matters even more as robotics and data centers push the pace of hardware development because faster design only becomes valuable when the manufacturing can keep up. And while manufacturing timelines have always been painful, once a model can design a board and write firmware on demand, manufacturing becomes the only bottleneck in hardware.
+
+Making design much easier also changes what factories get asked to build. When design revisions only cost the time it takes to prompt a model instead of weeks of engineering, teams will end up building many more versions of a board in smaller batches. Importantly, it's this kind of high-mix work that has historically been slow and expensive, so a lot of it went overseas. If America wants to compete here, technology must enable us to make a small run of brand-new boards cheap and right the first time, with the ability to scale into much higher volumes.
+
+Better models surely expand what people can design and how deep the customization can go — a hardware renaissance is coming. At Diode, we're focused on expanding what actually gets built.
