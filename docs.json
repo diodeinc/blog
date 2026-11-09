@@ -30,7 +30,7 @@
     "groups": [
       {
         "group": "Company Updates",
-        "pages": ["hardware-review", "anthropic-partnership", "series-a-announcement"]
+        "pages": ["ai-hardware-design-manufacturing", "hardware-review", "anthropic-partnership", "series-a-announcement"]
       }
     ]
   },
